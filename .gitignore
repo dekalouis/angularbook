@@ -1,0 +1,25 @@
+# Build outputs
+bin/
+obj/
+
+# ASP.NET secrets
+appsettings.Development.json
+appsettings.Local.json
+secrets.json
+
+# Entity Framework tools cache
+.migrations/
+
+# Logs
+*.log
+
+# Rider / VS Code
+.idea/
+.vscode/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+.env
+.env.*

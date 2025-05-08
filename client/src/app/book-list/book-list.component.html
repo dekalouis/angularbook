@@ -1,0 +1,14 @@
+<app-navbar />
+<h2>My Books</h2>
+
+<p *ngIf="errorMessage" style="color: red">{{ errorMessage }}</p>
+
+<ul *ngIf="books.length">
+  <li *ngFor="let book of books">
+    <strong>{{ book.title }}</strong> by {{ book.author }} —
+    <em>{{ book.isRead ? "Read" : "Unread" }}</em>
+    <button (click)="toggleRead(book.id)">Toggle</button>
+  </li>
+</ul>
+
+<p *ngIf="!books.length && !errorMessage">No books found.</p>
