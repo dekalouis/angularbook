@@ -1,0 +1,14 @@
+<app-navbar />
+<h2>Add New Book</h2>
+
+<form (ngSubmit)="onSubmit()" #bookForm="ngForm">
+  <label>Title:</label>
+  <input type="text" name="title" [(ngModel)]="title" required />
+
+  <label>Author:</label>
+  <input type="text" name="author" [(ngModel)]="author" required />
+
+  <button type="submit">Add Book</button>
+</form>
+
+<p *ngIf="errorMessage" style="color: red">{{ errorMessage }}</p>
