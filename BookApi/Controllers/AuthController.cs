@@ -47,7 +47,11 @@ public class AuthController : ControllerBase
         _context.Users.Add(user);
         await _context.SaveChangesAsync();
 
-        return Ok("User created");
+        // return Ok("User created");
+        return Ok(new { message = "User created" });
+        // return new JsonResult(new { message = "User created" }) { StatusCode = 200 };
+
+
     }
 
     // POST /api/auth/login

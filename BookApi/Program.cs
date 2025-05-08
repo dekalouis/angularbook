@@ -46,6 +46,17 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 builder.Services.AddControllers();
 builder.Services.AddAuthorization();
 
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(policy =>
+    {
+        policy.WithOrigins("http://localhost:4200") // allow the Angular app
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+    });
+});
+
+
 //like requiring express on node
 var app = builder.Build();
 
@@ -82,6 +93,10 @@ app.MapControllers();
 //     return forecast;
 // })
 // .WithName("GetWeatherForecast");
+
+//use the cords
+app.UseCors();
+
 
 //*enabling JWT and role policies in the app
 app.UseAuthentication();

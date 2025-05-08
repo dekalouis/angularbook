@@ -63,6 +63,13 @@ public class BookController : ControllerBase
         //     IsRead = false,
         //     UserId = userId
         // };
+
+        if (string.IsNullOrWhiteSpace(request.Title))
+            return BadRequest(new { message = "Title cannot be empty." });
+
+        if (string.IsNullOrWhiteSpace(request.Author))
+            return BadRequest(new { message = "Author cannot be empty." });
+
         //! SO THAT IT IS PERMANENT
         var user = await _context.Users.FindAsync(userId);
         var book = new Book
@@ -97,7 +104,8 @@ public class BookController : ControllerBase
         return Ok(response);
     }
 
-    // PATCH /api/book/{id}/toggle
+    // PATCH /api/book/{id}/toggle 
+    //to toggle READ unREAD status
     [HttpPatch("{id}/toggle")]
     public async Task<ActionResult> ToggleRead(int id)
     {
