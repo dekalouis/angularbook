@@ -1,23 +1,52 @@
-<h2>Register</h2>
-<p>Already have an account?</p>
-<button routerLink="/login">Login</button>
+<div class="flex items-center justify-center min-h-screen bg-blue-100">
+  <form
+    (ngSubmit)="onSubmit()"
+    #registerForm="ngForm"
+    class="bg-white p-8 rounded shadow-md w-full max-w-sm space-y-4"
+  >
+    <h2 class="text-xl font-semibold text-center">Register</h2>
 
-<form (ngSubmit)="onSubmit()" #registerForm="ngForm">
-  <label>Email:</label>
-  <input type="email" name="email" [(ngModel)]="email" required />
+    <label>Email:</label>
+    <input
+      type="email"
+      name="email"
+      [(ngModel)]="email"
+      placeholder="Enter email address"
+      required
+      class="w-full p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-400"
+    />
 
-  <label>Password:</label>
-  <input type="password" name="password" [(ngModel)]="password" required />
+    <label>Password:</label>
+    <input
+      type="password"
+      name="password"
+      [(ngModel)]="password"
+      placeholder="Enter password"
+      required
+      class="w-full p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-400"
+    />
 
-  <label>Confirm Password:</label>
-  <input
-    type="password"
-    name="confirmPassword"
-    [(ngModel)]="confirmPassword"
-    required
-  />
+    <label>Confirm Password:</label>
+    <input
+      type="password"
+      name="confirmPassword"
+      placeholder="Confirm password"
+      [(ngModel)]="confirmPassword"
+      required
+      class="w-full p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-400"
+    />
 
-  <button type="submit">Register</button>
-</form>
+    <button
+      type="submit"
+      class="w-full bg-blue-600 text-white p-2 rounded hover:bg-blue-700 transition"
+    >
+      Register
+    </button>
+    <p class="text-center text-sm">Already have an account?</p>
+    <button class="text-blue-600 hover:underline" routerLink="/login">
+      Login
+    </button>
+  </form>
 
-<p *ngIf="errorMessage" style="color: red">{{ errorMessage }}</p>
+  <p *ngIf="errorMessage" style="color: red">{{ errorMessage }}</p>
+</div>

@@ -1,15 +1,43 @@
-<h2>Login</h2>
-<p>Don't have an account?</p>
-<button routerLink="/register">Register</button>
+<div class="flex items-center justify-center min-h-screen bg-blue-100">
+  <form
+    (ngSubmit)="onSubmit()"
+    #loginForm="ngForm"
+    class="bg-white p-8 rounded shadow-md w-full max-w-sm space-y-4"
+  >
+    <h2 class="text-xl font-semibold text-center">Login</h2>
 
-<form (ngSubmit)="onSubmit()" #loginForm="ngForm">
-  <label>Email:</label>
-  <input type="email" name="email" [(ngModel)]="email" required />
+    <input
+      type="email"
+      name="email"
+      [(ngModel)]="email"
+      required
+      placeholder="Email"
+      class="w-full p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-400"
+    />
 
-  <label>Password:</label>
-  <input type="password" name="password" [(ngModel)]="password" required />
+    <input
+      type="password"
+      name="password"
+      [(ngModel)]="password"
+      required
+      placeholder="Password"
+      class="w-full p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-400"
+    />
 
-  <button type="submit">Login</button>
-</form>
+    <button
+      type="submit"
+      class="w-full bg-blue-600 text-white p-2 rounded hover:bg-blue-700 transition"
+    >
+      Login
+    </button>
 
-<p *ngIf="errorMessage" style="color: red">{{ errorMessage }}</p>
+    <p *ngIf="errorMessage" class="text-red-600 text-sm">{{ errorMessage }}</p>
+
+    <p class="text-center text-sm">
+      Don't have an account?
+      <a routerLink="/register" class="text-blue-600 hover:underline"
+        >Register</a
+      >
+    </p>
+  </form>
+</div>

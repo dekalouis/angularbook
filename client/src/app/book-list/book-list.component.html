@@ -1,8 +1,7 @@
-<app-navbar />
+<!-- backupsimple -->
+<!-- <app-navbar />
 <h2>My Books</h2>
-
 <p *ngIf="errorMessage" style="color: red">{{ errorMessage }}</p>
-
 <ul *ngIf="books.length">
   <li *ngFor="let book of books">
     <strong>{{ book.title }}</strong> by {{ book.author }} —
@@ -10,5 +9,43 @@
     <button (click)="toggleRead(book.id)">Toggle</button>
   </li>
 </ul>
+<p *ngIf="!books.length && !errorMessage">No books found.</p> -->
 
-<p *ngIf="!books.length && !errorMessage">No books found.</p>
+<app-navbar />
+
+<!-- <div class="flex items-center justify-center min-h-screen bg-blue-100"> -->
+<div class="max-w-4xl mx-10 p-6">
+  <h2 class="text-2xl font-bold mb-6">📚 My Books</h2>
+
+  <p *ngIf="errorMessage" class="text-red-600 mb-4">{{ errorMessage }}</p>
+
+  <div *ngIf="books.length; else noBooks" class="grid md:grid-cols-2 gap-4">
+    <div
+      *ngFor="let book of books"
+      class="p-4 rounded-lg shadow-md text-white"
+      [ngClass]="
+        book.isRead
+          ? 'bg-gradient-to-r from-purple-500 via-pink-500 to-red-500'
+          : 'bg-gradient-to-r from-blue-500 via-teal-500 to-green-500'
+      "
+    >
+      <h3 class="text-lg font-semibold">{{ book.title }}</h3>
+      <p class="italic mb-2">by {{ book.author }}</p>
+      <p>
+        Status: <strong>{{ book.isRead ? "Read" : "Unread" }}</strong>
+      </p>
+
+      <button
+        (click)="toggleRead(book.id)"
+        class="mt-3 bg-white text-gray-800 px-3 py-1 rounded hover:bg-gray-100 transition"
+      >
+        Toggle Read
+      </button>
+    </div>
+  </div>
+
+  <ng-template #noBooks>
+    <p class="text-gray-600 mt-6">No books found.</p>
+  </ng-template>
+</div>
+<!-- </div> -->
