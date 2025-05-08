@@ -1,14 +1,46 @@
 <app-navbar />
-<h2>Add New Book</h2>
 
-<form (ngSubmit)="onSubmit()" #bookForm="ngForm">
-  <label>Title:</label>
-  <input type="text" name="title" [(ngModel)]="title" required />
+<div class="flex items-center justify-center min-h-screen bg-gray-100">
+  <form
+    (ngSubmit)="onSubmit()"
+    #bookForm="ngForm"
+    class="bg-white p-8 rounded shadow-md w-full max-w-md space-y-4"
+  >
+    <h2 class="text-2xl font-semibold text-center">Add New Book</h2>
 
-  <label>Author:</label>
-  <input type="text" name="author" [(ngModel)]="author" required />
+    <div>
+      <label class="block mb-1 font-medium">Title</label>
+      <input
+        type="text"
+        name="title"
+        [(ngModel)]="title"
+        required
+        placeholder="e.g. Madilog"
+        class="w-full p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-400"
+      />
+    </div>
 
-  <button type="submit">Add Book</button>
-</form>
+    <div>
+      <label class="block mb-1 font-medium">Author</label>
+      <input
+        type="text"
+        name="author"
+        [(ngModel)]="author"
+        required
+        placeholder="e.g. Tan Malaka"
+        class="w-full p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-400"
+      />
+    </div>
 
-<p *ngIf="errorMessage" style="color: red">{{ errorMessage }}</p>
+    <button
+      type="submit"
+      class="w-full bg-blue-600 text-white p-2 rounded hover:bg-blue-700 transition"
+    >
+      Add Book
+    </button>
+
+    <p *ngIf="errorMessage" class="text-red-600 text-sm text-center">
+      {{ errorMessage }}
+    </p>
+  </form>
+</div>
