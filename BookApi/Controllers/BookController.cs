@@ -104,6 +104,32 @@ public class BookController : ControllerBase
         return Ok(response);
     }
 
+    // GET /api/book/{id}
+    //!!!GET BOOK BY ID
+    [HttpGet("{id}")]
+    public async Task<ActionResult<BookResponseDto>> GetBookById(int id)
+    {
+        var claim = User.FindFirst(ClaimTypes.NameIdentifier);
+        if (claim == null) return Unauthorized();
+        int userId = int.Parse(claim.Value);
+
+        var book = await _context.Books
+            .Where(b => b.Id == id && b.UserId == userId)
+            .Select(b => new BookResponseDto
+            {
+                Id = b.Id,
+                Title = b.Title,
+                Author = b.Author,
+                IsRead = b.IsRead
+            })
+            .FirstOrDefaultAsync();
+
+        if (book == null) return NotFound();
+
+        return Ok(book);
+    }
+
+
     // PATCH /api/book/{id}/toggle 
     //to toggle READ unREAD status
     [HttpPatch("{id}/toggle")]
