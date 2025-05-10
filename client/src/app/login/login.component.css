@@ -9,3 +9,10 @@
   width: 100%;
   margin-bottom: 1rem;
 }
+
+button {
+  padding: 0.5rem 1rem;
+  border-radius: 10px;
+  cursor: pointer;
+  margin: 0px 10px;
+}
