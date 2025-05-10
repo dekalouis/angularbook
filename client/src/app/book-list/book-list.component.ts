@@ -2,11 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { NavbarComponent } from '../navbar/navbar.component';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-book-list',
   standalone: true,
-  imports: [CommonModule, NavbarComponent],
+  imports: [CommonModule, NavbarComponent, RouterModule],
   templateUrl: './book-list.component.html',
   styleUrl: './book-list.component.css',
 })
@@ -51,6 +52,52 @@ export class BookListComponent {
         error: (err) => {
           this.errorMessage =
             'Failed to update book status. Please try again later.';
+        },
+      });
+  }
+
+  deleteBook(id: number) {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+    });
+
+    this.http
+      .delete(`http://localhost:5058/api/book/${id}`, { headers })
+      .subscribe({
+        next: () => this.ngOnInit(), //reload the books
+        error: (err) => {
+          this.errorMessage = 'Failed to delete book. Please try again later.';
+        },
+      });
+  }
+
+  updateBook(id: number) {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+    });
+
+    const newTitle = prompt('Enter new title:');
+    const newAuthor = prompt('Enter new author:');
+    if (!newTitle || !newAuthor) {
+      this.errorMessage = 'Title and author cannot be empty.';
+      return;
+    }
+
+    this.http
+      .put(
+        `http://localhost:5058/api/book/${id}`,
+        {
+          title: newTitle,
+          author: newAuthor,
+        },
+        { headers }
+      )
+      .subscribe({
+        next: () => this.ngOnInit(), //reload the books
+        error: (err) => {
+          this.errorMessage = 'Failed to update book. Please try again later.';
         },
       });
   }
