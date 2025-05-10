@@ -124,4 +124,58 @@ public class BookController : ControllerBase
 
         return Ok(new { message = "Toggled", isRead = book.IsRead });
     }
+
+    // DELETE /api/book/{id}
+    [HttpDelete("{id}")]
+    public async Task<ActionResult> DeleteBook(int id)
+    {
+        //Safely EXTRACT ID from JWT 
+        var claim = User.FindFirst(ClaimTypes.NameIdentifier);
+        if (claim == null) return Unauthorized();
+        int userId = int.Parse(claim.Value);
+
+        //Find books belonging to the user
+        var book = await _context.Books.FirstOrDefaultAsync(b => b.Id == id && b.UserId == userId);
+        if (book == null) return NotFound();
+
+        //Delete book
+        _context.Books.Remove(book);
+        await _context.SaveChangesAsync();
+
+        return Ok(new { message = "Book deleted successfully" });
+    }
+
+    // PUT /api/book/{id}
+    [HttpPut("{id}")]
+    public async Task<ActionResult<BookResponseDto>> UpdateBook(int id, BookDto request)
+    {
+        //Safely EXTRACT ID from JWT 
+        var claim = User.FindFirst(ClaimTypes.NameIdentifier);
+        if (claim == null) return Unauthorized();
+        int userId = int.Parse(claim.Value);
+
+        //Find books belonging to the user
+        var book = await _context.Books.FirstOrDefaultAsync(b => b.Id == id && b.UserId == userId);
+        if (book == null) return NotFound();
+
+        //Update book details
+        book.Title = request.Title;
+        book.Author = request.Author;
+
+        await _context.SaveChangesAsync();
+
+        //Return updated book as response
+        var response = new BookResponseDto
+        {
+            Id = book.Id,
+            Title = book.Title,
+            Author = book.Author,
+            IsRead = book.IsRead
+        };
+
+        return Ok(response);
+    }
+
+
+
 }
