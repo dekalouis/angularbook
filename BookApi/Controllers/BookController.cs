@@ -104,6 +104,32 @@ public class BookController : ControllerBase
         return Ok(response);
     }
 
+    // GET /api/book/{id}
+    //!!!GET BOOK BY ID
+    [HttpGet("{id}")]
+    public async Task<ActionResult<BookResponseDto>> GetBookById(int id)
+    {
+        var claim = User.FindFirst(ClaimTypes.NameIdentifier);
+        if (claim == null) return Unauthorized();
+        int userId = int.Parse(claim.Value);
+
+        var book = await _context.Books
+            .Where(b => b.Id == id && b.UserId == userId)
+            .Select(b => new BookResponseDto
+            {
+                Id = b.Id,
+                Title = b.Title,
+                Author = b.Author,
+                IsRead = b.IsRead
+            })
+            .FirstOrDefaultAsync();
+
+        if (book == null) return NotFound();
+
+        return Ok(book);
+    }
+
+
     // PATCH /api/book/{id}/toggle 
     //to toggle READ unREAD status
     [HttpPatch("{id}/toggle")]
@@ -124,4 +150,58 @@ public class BookController : ControllerBase
 
         return Ok(new { message = "Toggled", isRead = book.IsRead });
     }
+
+    // DELETE /api/book/{id}
+    [HttpDelete("{id}")]
+    public async Task<ActionResult> DeleteBook(int id)
+    {
+        //Safely EXTRACT ID from JWT 
+        var claim = User.FindFirst(ClaimTypes.NameIdentifier);
+        if (claim == null) return Unauthorized();
+        int userId = int.Parse(claim.Value);
+
+        //Find books belonging to the user
+        var book = await _context.Books.FirstOrDefaultAsync(b => b.Id == id && b.UserId == userId);
+        if (book == null) return NotFound();
+
+        //Delete book
+        _context.Books.Remove(book);
+        await _context.SaveChangesAsync();
+
+        return Ok(new { message = "Book deleted successfully" });
+    }
+
+    // PUT /api/book/{id}
+    [HttpPut("{id}")]
+    public async Task<ActionResult<BookResponseDto>> UpdateBook(int id, BookDto request)
+    {
+        //Safely EXTRACT ID from JWT 
+        var claim = User.FindFirst(ClaimTypes.NameIdentifier);
+        if (claim == null) return Unauthorized();
+        int userId = int.Parse(claim.Value);
+
+        //Find books belonging to the user
+        var book = await _context.Books.FirstOrDefaultAsync(b => b.Id == id && b.UserId == userId);
+        if (book == null) return NotFound();
+
+        //Update book details
+        book.Title = request.Title;
+        book.Author = request.Author;
+
+        await _context.SaveChangesAsync();
+
+        //Return updated book as response
+        var response = new BookResponseDto
+        {
+            Id = book.Id,
+            Title = book.Title,
+            Author = book.Author,
+            IsRead = book.IsRead
+        };
+
+        return Ok(response);
+    }
+
+
+
 }
