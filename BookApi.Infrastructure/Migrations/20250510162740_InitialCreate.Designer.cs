@@ -8,11 +8,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace BookApi.Migrations
+namespace BookApi.Infrastructure.Migrations
 {
-    [DbContext(typeof(BookApi.Infrastructure.Data.AppDbContext))]
-
-    [Migration("20250508080246_InitialCreate")]
+    [DbContext(typeof(AppDbContext))]
+    [Migration("20250510162740_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -25,7 +24,7 @@ namespace BookApi.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("BookApi.Models.Book", b =>
+            modelBuilder.Entity("BookApi.Domain.Entities.Book", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -54,7 +53,7 @@ namespace BookApi.Migrations
                     b.ToTable("Books");
                 });
 
-            modelBuilder.Entity("BookApi.Models.User", b =>
+            modelBuilder.Entity("BookApi.Domain.Entities.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -75,9 +74,9 @@ namespace BookApi.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("BookApi.Models.Book", b =>
+            modelBuilder.Entity("BookApi.Domain.Entities.Book", b =>
                 {
-                    b.HasOne("BookApi.Models.User", "User")
+                    b.HasOne("BookApi.Domain.Entities.User", "User")
                         .WithMany("Books")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -86,7 +85,7 @@ namespace BookApi.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("BookApi.Models.User", b =>
+            modelBuilder.Entity("BookApi.Domain.Entities.User", b =>
                 {
                     b.Navigation("Books");
                 });
