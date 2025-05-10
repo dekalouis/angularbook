@@ -1,2 +1,80 @@
 /* You can add global styles to this file, and also import other style files */
-@import "tailwindcss";
+/* @import "tailwindcss"; */
+@import "@angular/material/prebuilt-themes/azure-blue.css";
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+
+  background-color: #cfdfff;
+  margin: 0;
+  font-family: Roboto, sans-serif;
+}
+
+.auth-card {
+  max-width: 400px;
+  margin: 2rem auto;
+  padding: 1rem;
+}
+
+.full-width {
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+/* add/updatecard */
+.form-wrapper {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #cfdfff;
+  padding: 0.5rem;
+}
+
+.form-card {
+  width: 100%;
+  max-width: 420px;
+  padding: 2rem;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+}
+
+.form-title {
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 500;
+  margin-bottom: 1.5rem;
+}
+
+.full-width {
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.submit-btn {
+  width: 100%;
+  margin-top: 0.5rem;
+}
+
+.error-msg {
+  text-align: center;
+  color: #e53935;
+  font-size: 0.9rem;
+  margin-top: 1rem;
+}
+
+button {
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  border: none;
+  cursor: pointer;
+}

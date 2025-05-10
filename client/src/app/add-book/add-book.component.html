@@ -1,5 +1,50 @@
 <app-navbar />
 
+<div class="form-wrapper">
+  <mat-card class="form-card">
+    <h2 class="form-title">Add New Book</h2>
+
+    <form (ngSubmit)="onSubmit()" #bookForm="ngForm">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Title</mat-label>
+        <input
+          matInput
+          type="text"
+          name="title"
+          [(ngModel)]="title"
+          required
+          placeholder="e.g. Madilog"
+        />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Author</mat-label>
+        <input
+          matInput
+          type="text"
+          name="author"
+          [(ngModel)]="author"
+          required
+          placeholder="e.g. Tan Malaka"
+        />
+      </mat-form-field>
+
+      <button
+        mat-raised-button
+        color="primary"
+        class="submit-btn"
+        type="submit"
+      >
+        Add Book
+      </button>
+
+      <p class="error-msg" *ngIf="errorMessage">{{ errorMessage }}</p>
+    </form>
+  </mat-card>
+</div>
+
+<!-- <app-navbar />
+
 <div class="flex items-center justify-center min-h-screen bg-gray-100">
   <form
     (ngSubmit)="onSubmit()"
@@ -43,4 +88,4 @@
       {{ errorMessage }}
     </p>
   </form>
-</div>
+</div> -->

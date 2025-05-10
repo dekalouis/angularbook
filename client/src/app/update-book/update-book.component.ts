@@ -5,11 +5,18 @@ import { CommonModule } from '@angular/common'; // for *ngIf
 import { FormsModule } from '@angular/forms'; // for ngModel, ngForm
 import { RouterModule } from '@angular/router'; // for routerLink
 import { NavbarComponent } from '../navbar/navbar.component'; // adjust path if needed
+import { MaterialModule } from '../material.module';
 
 @Component({
   selector: 'app-update-book',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterModule, NavbarComponent],
+  imports: [
+    CommonModule,
+    FormsModule,
+    RouterModule,
+    NavbarComponent,
+    MaterialModule,
+  ],
   templateUrl: './update-book.component.html',
 })
 export class UpdateBookComponent implements OnInit {
@@ -63,7 +70,12 @@ export class UpdateBookComponent implements OnInit {
       .subscribe({
         next: () => this.router.navigate(['/books']),
         error: (err) => {
-          this.errorMessage = 'Failed to update book';
+          const backendError =
+            err.error?.message ||
+            (typeof err.error === 'string' ? err.error : null);
+
+          this.errorMessage =
+            backendError || 'Failed to update book. Please try again.';
           console.error(err);
         },
       });

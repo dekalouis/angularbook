@@ -4,11 +4,12 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NavbarComponent } from '../navbar/navbar.component';
+import { MaterialModule } from '../material.module';
 
 @Component({
   selector: 'app-add-book',
   standalone: true,
-  imports: [CommonModule, FormsModule, NavbarComponent],
+  imports: [CommonModule, FormsModule, NavbarComponent, MaterialModule],
   templateUrl: './add-book.component.html',
   styleUrls: ['./add-book.component.css'],
 })

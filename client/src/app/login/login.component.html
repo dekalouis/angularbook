@@ -1,4 +1,35 @@
-<div class="flex items-center justify-center min-h-screen bg-blue-100">
+<mat-card class="auth-card">
+  <h2>Login</h2>
+
+  <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Email</mat-label>
+      <input matInput name="email" [(ngModel)]="email" required />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Password</mat-label>
+      <input
+        matInput
+        type="password"
+        name="password"
+        [(ngModel)]="password"
+        required
+      />
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" type="submit">Login</button>
+  </form>
+
+  <p style="color: red" *ngIf="errorMessage">{{ errorMessage }}</p>
+
+  <p>
+    Don’t have an account?
+    <a routerLink="/register">Register here</a>
+  </p>
+</mat-card>
+
+<!-- <div class="flex items-center justify-center min-h-screen bg-blue-100">
   <form
     (ngSubmit)="onSubmit()"
     #loginForm="ngForm"
@@ -40,4 +71,4 @@
       >
     </p>
   </form>
-</div>
+</div> -->

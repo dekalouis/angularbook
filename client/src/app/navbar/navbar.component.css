@@ -1,0 +1,17 @@
+.warn-button {
+  background-color: #d14023;
+  color: white;
+
+  border-radius: 4px;
+  padding: 0.5px 1rem;
+  margin: 0px 0.5rem;
+  border: none;
+  cursor: pointer;
+}
+
+.button {
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  border: none;
+  cursor: pointer;
+}
