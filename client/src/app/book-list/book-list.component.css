@@ -1,0 +1,83 @@
+.book-list-container {
+  max-width: 960px;
+  margin: 2rem auto;
+  padding: 1rem;
+}
+
+.page-title {
+  text-align: center;
+  font-size: 1.75rem;
+  font-weight: 600;
+  margin-bottom: 2rem;
+}
+
+.book-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1rem;
+}
+
+.book-card {
+  color: white;
+  padding: 1rem;
+  border-radius: 12px;
+  transition: transform 0.3s;
+}
+
+.book-card:hover {
+  transform: scale(1.02);
+}
+
+.read-gradient {
+  background: linear-gradient(to right, #9b59b6, #e91e63, #f44336);
+}
+
+.unread-gradient {
+  background: linear-gradient(to right, #2196f3, #009688, #4caf50);
+}
+
+.card-title {
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+.card-author {
+  font-style: italic;
+  margin-bottom: 0.5rem;
+}
+
+.error-text {
+  color: red;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.empty-text {
+  text-align: center;
+  color: gray;
+  margin-top: 2rem;
+}
+
+.material-symbols-outlined {
+  font-size: 20px;
+  vertical-align: middle;
+}
+.button {
+  background-color: #e6e6e6;
+  /* color: white; */
+  padding: 0.5rem 1rem;
+  /* border: 1px solid; */
+  border-radius: 10px;
+  cursor: pointer;
+  margin: 10px 10px 0px;
+}
+
+/* .warn-button {
+  background-color: #d14023;
+  color: white;
+}
+
+.edit-button {
+  background-color: #e9bf33;
+  color: white;
+} */

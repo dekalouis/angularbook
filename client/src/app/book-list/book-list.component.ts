@@ -3,11 +3,12 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { RouterModule } from '@angular/router';
+import { MaterialModule } from '../material.module';
 
 @Component({
   selector: 'app-book-list',
   standalone: true,
-  imports: [CommonModule, NavbarComponent, RouterModule],
+  imports: [CommonModule, NavbarComponent, RouterModule, MaterialModule],
   templateUrl: './book-list.component.html',
   styleUrl: './book-list.component.css',
 })

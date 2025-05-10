@@ -1,4 +1,12 @@
-<nav class="bg-white shadow-md p-4 flex justify-between items-center">
+<mat-toolbar color="primary">
+  <span>📚 BookTracker</span>
+  <span class="spacer"></span>
+  <a class="button" mat-button routerLink="/books">My Books</a>
+  <a class="button" mat-button routerLink="/add-book">Add Book</a>
+  <button class="warn-button" mat-button (click)="logout()">Logout</button>
+</mat-toolbar>
+
+<!-- <nav class="bg-white shadow-md p-4 flex justify-between items-center">
   <div class="space-x-4">
     <a routerLink="/books" class="text-blue-600 font-medium hover:underline"
       >📚 My Books</a
@@ -13,4 +21,4 @@
   >
     Logout
   </button>
-</nav>
+</nav> -->

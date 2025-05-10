@@ -1,3 +1,57 @@
+<app-navbar />
+
+<div class="book-list-container">
+  <h2 class="page-title">📚 My Books</h2>
+
+  <p *ngIf="errorMessage" class="error-text">{{ errorMessage }}</p>
+
+  <div *ngIf="books.length; else noBooks" class="book-grid">
+    <mat-card
+      *ngFor="let book of books"
+      class="book-card"
+      [ngClass]="book.isRead ? 'read-gradient' : 'unread-gradient'"
+    >
+      <mat-card-title class="card-title">{{ book.title }}</mat-card-title>
+      <mat-card-content>
+        <p class="card-author">by {{ book.author }}</p>
+        <p>
+          Status: <strong>{{ book.isRead ? "Read" : "Unread" }}</strong>
+        </p>
+      </mat-card-content>
+
+      <mat-card-actions>
+        <button
+          class="button"
+          mat-button
+          color="accent"
+          (click)="toggleRead(book.id)"
+        >
+          <span class="material-symbols-outlined"> auto_stories </span>
+        </button>
+        <a
+          class="button edit-button"
+          mat-button
+          color="primary"
+          [routerLink]="['/book/edit', book.id]"
+          >Edit</a
+        >
+        <button
+          class="button warn-button"
+          mat-button
+          color="warn"
+          (click)="deleteBook(book.id)"
+        >
+          Delete
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+
+  <ng-template #noBooks>
+    <p class="empty-text">No books found.</p>
+  </ng-template>
+</div>
+
 <!-- backupsimple -->
 <!-- <app-navbar />
 <h2>My Books</h2>
@@ -11,9 +65,9 @@
 </ul>
 <p *ngIf="!books.length && !errorMessage">No books found.</p> -->
 
-<app-navbar />
+<!-- <app-navbar /> -->
+<!-- 
 
-<!-- <div class="flex items-center justify-center min-h-screen bg-blue-100"> -->
 <div class="max-w-4xl mx-10 p-6">
   <h2 class="text-2xl font-bold mb-6">📚 My Books</h2>
 
@@ -42,13 +96,7 @@
         Toggle Read
       </button>
 
-      <!-- Update Button -->
-      <!-- <button
-        (click)="updateBook(book)"
-        class="mt-2 ml-2 bg-yellow-300 text-black px-3 py-1 rounded hover:bg-yellow-400 transition"
-      >
-        Edit
-      </button> -->
+
       <a
         [routerLink]="['/book/edit', book.id]"
         class="mt-2 ml-2 bg-yellow-300 text-black px-3 py-1 rounded hover:bg-yellow-400 transition inline-block"
@@ -56,7 +104,7 @@
         Edit
       </a>
 
-      <!-- Delete Button -->
+
       <button
         (click)="deleteBook(book.id)"
         class="mt-2 ml-2 bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 transition"
@@ -70,4 +118,4 @@
     <p class="text-gray-600 mt-6">No books found.</p>
   </ng-template>
 </div>
-<!-- </div> -->
+ -->
