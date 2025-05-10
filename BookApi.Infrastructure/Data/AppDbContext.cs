@@ -1,7 +1,11 @@
 using Microsoft.EntityFrameworkCore;
-using BookApi.Models;
+using BookApi.Domain.Entities;
 
-namespace BookApi.Data
+
+
+
+namespace BookApi.Infrastructure.Data
+
 {
     //the main DB context for entity framework  and the constructor for config (like db connection string)
     public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(options)

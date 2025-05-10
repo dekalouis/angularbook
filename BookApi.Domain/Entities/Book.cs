@@ -1,4 +1,5 @@
-namespace BookApi.Models
+namespace BookApi.Domain.Entities
+
 {
     //the book entity 
     public class Book
@@ -11,6 +12,7 @@ namespace BookApi.Models
         //relationships foreign key to the user table
         public int UserId { get; set; }
         //navigation property to the user table (req to enfore ownership)
-        public required User User { get; set; }
+        public User? User { get; set; }
+
     }
 }

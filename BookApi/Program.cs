@@ -1,9 +1,15 @@
 //importing necessary namespaces
 using System.Text;
-using BookApi.Data;
+using BookApi.Application.Interfaces;
+using BookApi.Infrastructure.Data;
+using BookApi.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using MediatR;
+using BookApi.Application.Features.Books.Commands;
+
+
 
 //setup basic builder and dependencies
 var builder = WebApplication.CreateBuilder(args);
@@ -12,6 +18,15 @@ var builder = WebApplication.CreateBuilder(args);
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 // SWAGER or OpenAPI UI for testing in dev
 builder.Services.AddOpenApi();
+
+builder.Services.AddScoped<IBookRepository, BookRepository>();
+
+// ✅ Register MediatR for CQRS handlers
+builder.Services.AddMediatR(cfg =>
+    cfg.RegisterServicesFromAssembly(typeof(CreateBookHandler).Assembly));
+
+
+
 
 //? configuring entity framework to use PostgreSQL using connection string from appsettings.json
 builder.Services.AddDbContext<AppDbContext>(options =>

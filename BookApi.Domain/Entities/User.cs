@@ -1,4 +1,5 @@
-namespace BookApi.Models
+namespace BookApi.Domain.Entities
+
 {
     //user entity to match the user table in the database
     public class User
