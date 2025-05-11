@@ -1,3 +1,7 @@
+## Note! The main branch is the basic project without
+ONION, SOLID, CQRS (MediatR) Architecture, Testing, RxJS, and Material Module. 
+### The complete project remains in the Development Branch for the sake of separation
+---
 
 # 📚 Angular + ASP.NET Core Book Tracker
 
