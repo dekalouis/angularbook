@@ -87,3 +87,8 @@ a.edit-button[mat-button] {
   background-color: #3a779a;
   color: white;
 }
+
+.spinner {
+  display: block;
+  margin: 20px auto;
+}
