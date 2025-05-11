@@ -8,6 +8,7 @@ import { NavbarComponent } from '../navbar/navbar.component'; // adjust path if 
 import { MaterialModule } from '../material.module';
 import { SnackbarService } from '../services/snackbar.service';
 import { BookService } from '../services/book.service';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-update-book',
@@ -47,7 +48,7 @@ export class UpdateBookComponent implements OnInit {
     this.bookId = +this.route.snapshot.paramMap.get('id')!;
     this.http
       .get<any>(
-        `http://localhost:5058/api/book/${this.bookId}`,
+        `${environment.apiBaseUrl}/api/book/${this.bookId}`,
         this.httpOptions
       )
       .subscribe({
@@ -67,7 +68,7 @@ export class UpdateBookComponent implements OnInit {
   onSubmit(): void {
     this.http
       .put(
-        `http://localhost:5058/api/book/${this.bookId}`,
+        `${environment.apiBaseUrl}/api/book/${this.bookId}`,
         {
           title: this.title,
           author: this.author,

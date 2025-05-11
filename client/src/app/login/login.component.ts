@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MaterialModule } from '../material.module';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-login',
@@ -20,8 +21,14 @@ export class LoginComponent {
   constructor(private http: HttpClient, private router: Router) {}
 
   onSubmit() {
+    // Basic frontend validation
+    if (!this.email.trim() || !this.password.trim()) {
+      this.errorMessage = 'Email and password cannot be empty.';
+      return;
+    }
+
     this.http
-      .post<{ token: string }>('http://localhost:5058/api/auth/login', {
+      .post<{ token: string }>(`${environment.apiBaseUrl}/api/auth/login`, {
         email: this.email,
         password: this.password,
       })
@@ -31,10 +38,16 @@ export class LoginComponent {
           this.router.navigate(['/books']);
         },
         error: (err) => {
-          this.errorMessage =
-            err.error?.title ||
-            err.error ||
-            'Login failed. Please check your credentials.';
+          if (err.error instanceof ProgressEvent) {
+            this.errorMessage =
+              'Cannot connect to the server. Please try again later.';
+          } else {
+            this.errorMessage =
+              err.error?.title ||
+              err.error?.message ||
+              err.message ||
+              'Login failed. Please check your credentials.';
+          }
         },
       });
   }

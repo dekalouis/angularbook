@@ -7,6 +7,7 @@ import { NavbarComponent } from '../navbar/navbar.component';
 import { MaterialModule } from '../material.module';
 import { SnackbarService } from '../services/snackbar.service';
 import { BookService } from '../services/book.service';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-add-book',
@@ -36,7 +37,7 @@ export class AddBookComponent {
 
     this.http
       .post(
-        'http://localhost:5058/api/book',
+        `${environment.apiBaseUrl}/api/book`,
         { title: this.title, author: this.author },
         { headers }
       )

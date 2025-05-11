@@ -1,3 +1,4 @@
 export const environment = {
-  apiBaseUrl: 'http://localhost:5058',
+  production: true,
+  apiBaseUrl: 'https://angbookserver.dekalouis.com',
 };
