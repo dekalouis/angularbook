@@ -1,6 +1,7 @@
-.warn-button {
-  background-color: #d14023;
+button.logout-button[mat-button] {
   color: white;
+
+  background-color: #cb2301;
 
   border-radius: 4px;
   padding: 0.5px 1rem;

@@ -16,9 +16,18 @@ namespace BookApi.Infrastructure.Repositories
 
         public async Task<List<Book>> GetBooksByUserIdAsync(int userId)
         {
+            // MAKING CONSISTENT ORDERING  by Id (oldest first)
             return await _context.Books
                 .Where(b => b.UserId == userId)
+                .OrderBy(b => b.Id)  // Sort by ID so order is consistent regardless of read status
                 .ToListAsync();
+
+            // MAKING CONSISTENT ORDERING - first by IsRead (unread first), then by Id (oldest first)
+            // return await _context.Books
+            //     .Where(b => b.UserId == userId)
+            //     .OrderBy(b => b.IsRead)  //False (0) comes before True (1)
+            //     .ThenBy(b => b.Id) //Then sort by Id so older books come first
+            //     .ToListAsync();
         }
 
         public async Task<Book?> GetBookByIdAsync(int bookId, int userId)

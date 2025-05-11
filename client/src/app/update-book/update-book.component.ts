@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms'; // for ngModel, ngForm
 import { RouterModule } from '@angular/router'; // for routerLink
 import { NavbarComponent } from '../navbar/navbar.component'; // adjust path if needed
 import { MaterialModule } from '../material.module';
+import { SnackbarService } from '../services/snackbar.service';
 
 @Component({
   selector: 'app-update-book',
@@ -35,7 +36,8 @@ export class UpdateBookComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private http: HttpClient,
-    private router: Router
+    private router: Router,
+    private snackbar: SnackbarService
   ) {}
 
   ngOnInit(): void {
@@ -68,14 +70,15 @@ export class UpdateBookComponent implements OnInit {
         this.httpOptions
       )
       .subscribe({
-        next: () => this.router.navigate(['/books']),
+        next: () => {
+          this.snackbar.show('Book updated successfully!');
+          this.router.navigate(['/books']);
+        },
         error: (err) => {
-          const backendError =
-            err.error?.message ||
-            (typeof err.error === 'string' ? err.error : null);
+          this.snackbar.show('Failed to update book.', 'Dismiss', 4000);
 
           this.errorMessage =
-            backendError || 'Failed to update book. Please try again.';
+            err?.error?.message || 'Failed to update book. Please try again.';
           console.error(err);
         },
       });

@@ -1,8 +1,9 @@
 using MediatR;
 using BookApi.Application.Interfaces;
 using BookApi.Domain.Entities;
-using System.Threading;
-using System.Threading.Tasks;
+// using System.Threading;
+// using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
 
 namespace BookApi.Application.Features.Books.Commands
 {
@@ -17,6 +18,13 @@ namespace BookApi.Application.Features.Books.Commands
 
         public async Task<Book?> Handle(UpdateBookCommand request, CancellationToken cancellationToken)
         {
+
+            if (string.IsNullOrWhiteSpace(request.Title))
+                throw new ValidationException("Title cannot be empty.");
+
+            if (string.IsNullOrWhiteSpace(request.Author))
+                throw new ValidationException("Author cannot be empty.");
+
             var book = new Book
             {
                 Id = request.Id,

@@ -1,4 +1,4 @@
-<mat-card class="auth-card">
+<mat-card class="register-card">
   <h2>Register</h2>
 
   <form (ngSubmit)="onSubmit()" #registerForm="ngForm">
@@ -29,7 +29,14 @@
       />
     </mat-form-field>
 
-    <button mat-raised-button color="primary" type="submit">Register</button>
+    <button
+      mat-raised-button
+      color="primary"
+      type="submit"
+      class="full-width-button"
+    >
+      Register
+    </button>
   </form>
 
   <p style="color: red" *ngIf="errorMessage">{{ errorMessage }}</p>
