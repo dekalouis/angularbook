@@ -14,7 +14,7 @@
       <mat-card-title class="card-title">{{ book.title }}</mat-card-title>
       <mat-card-content>
         <p class="card-author">by {{ book.author }}</p>
-        <p>
+        <p [ngClass]="book.isRead ? 'read-font' : ''">
           Status: <strong>{{ book.isRead ? "Read" : "Unread" }}</strong>
         </p>
       </mat-card-content>
