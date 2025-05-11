@@ -21,10 +21,19 @@ public class AuthController : ControllerBase
         _config = config;
     }
 
+    private bool IsLoggedIn()
+    {
+        return User.Identity != null && User.Identity.IsAuthenticated;
+    }
+
+
     // POST /api/auth/register
     [HttpPost("register")]
     public async Task<IActionResult> Register(UserDto request)
     {
+
+        if (IsLoggedIn())
+            return Forbid("Already logged in");
         // Check if the email is already in use
         if (_context.Users.Any(u => u.Email == request.Email))
             // return BadRequest("Email already in use");
@@ -64,6 +73,9 @@ public class AuthController : ControllerBase
     [HttpPost("login")]
     public async Task<IActionResult> Login(UserDto request)
     {
+
+        if (IsLoggedIn())
+            return Forbid("Already logged in");
         //lookup user by the email first
         var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == request.Email);
         //check if the user exists and if the password is correct
