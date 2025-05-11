@@ -1,4 +1,4 @@
-<mat-card class="auth-card">
+<mat-card class="login-card">
   <h2>Login</h2>
 
   <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
@@ -18,13 +18,20 @@
       />
     </mat-form-field>
 
-    <button mat-raised-button color="primary" type="submit">Login</button>
+    <button
+      mat-raised-button
+      color="primary"
+      type="submit"
+      class="full-width-button"
+    >
+      Login
+    </button>
   </form>
 
   <p style="color: red" *ngIf="errorMessage">{{ errorMessage }}</p>
 
   <p>
-    Don’t have an account?
+    Don't have an account?
     <a routerLink="/register">Register here</a>
   </p>
 </mat-card>

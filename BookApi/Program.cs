@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using MediatR;
 using BookApi.Application.Features.Books.Commands;
+using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Diagnostics;
 
 
 
@@ -79,10 +81,37 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
+
+
+
 }
+//*using the exception handler middleware to handle errors globally (like express error handling middleware)
+app.UseExceptionHandler(errorApp =>
+{
+    errorApp.Run(async context =>
+    {
+        var exception = context.Features.Get<IExceptionHandlerFeature>()?.Error;
+
+        if (exception is ValidationException validationEx)
+        {
+            context.Response.StatusCode = StatusCodes.Status400BadRequest;
+            context.Response.ContentType = "application/json";
+
+            await context.Response.WriteAsJsonAsync(new { message = validationEx.Message });
+            return;
+        }
+
+        // handle other exceptions (optional)
+        context.Response.StatusCode = StatusCodes.Status500InternalServerError;
+        await context.Response.WriteAsJsonAsync(new { message = "An unexpected error occurred." });
+    });
+});
 
 //the root test route, like / in express
 app.MapGet("/", () => "API is running...");
+
+
+
 
 //*add map controllers before the app runs (routing http req to controller endpoints)
 app.MapControllers();

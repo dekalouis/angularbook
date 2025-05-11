@@ -29,11 +29,11 @@
 }
 
 .read-gradient {
-  background: linear-gradient(to right, #9b59b6, #e91e63, #f44336);
+  background: linear-gradient(to right, #7e59b6, #911ee9, #8236f4);
 }
 
 .unread-gradient {
-  background: linear-gradient(to right, #2196f3, #009688, #4caf50);
+  background: linear-gradient(to right, #2196f3, #2d9fcc, #4c9daf);
 }
 
 .card-title {
@@ -72,12 +72,13 @@
   margin: 10px 10px 0px;
 }
 
-/* .warn-button {
-  background-color: #d14023;
+button.warn-button[mat-button] {
   color: white;
+
+  background-color: #cb2301;
 }
 
-.edit-button {
-  background-color: #e9bf33;
+a.edit-button[mat-button] {
+  background-color: #3a779a;
   color: white;
-} */
+}

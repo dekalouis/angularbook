@@ -27,14 +27,20 @@ public class AuthController : ControllerBase
     {
         // Check if the email is already in use
         if (_context.Users.Any(u => u.Email == request.Email))
-            return BadRequest("Email already in use");
+            // return BadRequest("Email already in use");
+            return BadRequest(new { message = "Email already in use" });
+
 
         // Validate the password format (at least 6 characters )
         if (request.Password.Length < 6)
-            return BadRequest("Password must be at least 6 characters long");
+            // return BadRequest("Password must be at least 6 characters long");
+            return BadRequest(new { message = "Password must be at least 6 characters long" });
+
 
         // if (!request.Password.Any(char.IsDigit))
         //     return BadRequest("Password must contain at least one number");
+
+
 
         //create and hash the password
         var user = new User
