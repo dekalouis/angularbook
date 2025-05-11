@@ -32,10 +32,16 @@ export class LoginComponent {
           this.router.navigate(['/books']);
         },
         error: (err) => {
-          this.errorMessage =
-            err.error?.title ||
-            err.error ||
-            'Login failed. Please check your credentials.';
+          if (err.error instanceof ProgressEvent) {
+            this.errorMessage =
+              'Cannot connect to the server. Please try again later.';
+          } else {
+            this.errorMessage =
+              err.error?.title ||
+              err.error?.message ||
+              err.message ||
+              'Login failed. Please check your credentials.';
+          }
         },
       });
   }
