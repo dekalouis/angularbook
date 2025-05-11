@@ -29,7 +29,7 @@ builder.Services.AddScoped<IBookRepository, BookRepository>();
 builder.Services.AddMediatR(cfg =>
     cfg.RegisterServicesFromAssembly(typeof(CreateBookHandler).Assembly));
 
-
+builder.WebHost.UseUrls("http://0.0.0.0:80");
 
 
 //? configuring entity framework to use PostgreSQL using connection string from appsettings.json
@@ -80,12 +80,12 @@ builder.Services.AddCors(options =>
 {
     options.AddDefaultPolicy(policy =>
     {
-        policy.WithOrigins("http://localhost:4200") // allow the Angular app
+        policy.AllowAnyOrigin()
               .AllowAnyHeader()
               .AllowAnyMethod();
     });
-});
 
+});
 
 //like requiring express on node
 var app = builder.Build();
@@ -141,5 +141,6 @@ app.UseAuthorization();
 //like app.listen in node to run the server
 app.Run();
 
+Console.WriteLine("Environment: " + app.Environment.EnvironmentName);
 
 public partial class Program { }

@@ -21,6 +21,12 @@ export class LoginComponent {
   constructor(private http: HttpClient, private router: Router) {}
 
   onSubmit() {
+    // Basic frontend validation
+    if (!this.email.trim() || !this.password.trim()) {
+      this.errorMessage = 'Email and password cannot be empty.';
+      return;
+    }
+
     this.http
       .post<{ token: string }>(`${environment.apiBaseUrl}/api/auth/login`, {
         email: this.email,
