@@ -2,10 +2,17 @@
 
 <div class="book-list-container">
   <h2 class="page-title">📚 My Books</h2>
+  <mat-progress-spinner
+    *ngIf="isLoading"
+    mode="indeterminate"
+    color="primary"
+    class="spinner"
+    diameter="40"
+  ></mat-progress-spinner>
 
   <p *ngIf="errorMessage" class="error-text">{{ errorMessage }}</p>
 
-  <div *ngIf="books.length; else noBooks" class="book-grid">
+  <div *ngIf="books$ | async as books; else noBooks" class="book-grid">
     <mat-card
       *ngFor="let book of books"
       class="book-card"

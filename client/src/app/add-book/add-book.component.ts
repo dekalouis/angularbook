@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { MaterialModule } from '../material.module';
 import { SnackbarService } from '../services/snackbar.service';
+import { BookService } from '../services/book.service';
 
 @Component({
   selector: 'app-add-book',
@@ -18,16 +19,20 @@ export class AddBookComponent {
   title = '';
   author = '';
   errorMessage = '';
+  isLoading = false;
 
   constructor(
     private http: HttpClient,
     private router: Router,
-    private snackbar: SnackbarService
+    private snackbar: SnackbarService,
+    private bookService: BookService
   ) {}
 
   onSubmit() {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({ Authorization: `Bearer ${token}` });
+
+    this.isLoading = true;
 
     this.http
       .post(
@@ -38,10 +43,14 @@ export class AddBookComponent {
       .subscribe({
         next: () => {
           this.snackbar.show('New book added successfully!');
+          this.isLoading = false;
+          this.bookService.refreshBooks();
           this.router.navigate(['/books']);
         },
         error: (err) => {
           this.snackbar.show('Failed to add book.', 'Dismiss', 4000);
+          this.isLoading = false;
+
           this.errorMessage =
             err?.error?.message || 'Failed to add book. Please try again.';
         },

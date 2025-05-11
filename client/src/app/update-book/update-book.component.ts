@@ -7,6 +7,7 @@ import { RouterModule } from '@angular/router'; // for routerLink
 import { NavbarComponent } from '../navbar/navbar.component'; // adjust path if needed
 import { MaterialModule } from '../material.module';
 import { SnackbarService } from '../services/snackbar.service';
+import { BookService } from '../services/book.service';
 
 @Component({
   selector: 'app-update-book',
@@ -25,6 +26,7 @@ export class UpdateBookComponent implements OnInit {
   author: string = '';
   errorMessage = '';
   bookId!: number;
+  isLoading = true;
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -37,7 +39,8 @@ export class UpdateBookComponent implements OnInit {
     private route: ActivatedRoute,
     private http: HttpClient,
     private router: Router,
-    private snackbar: SnackbarService
+    private snackbar: SnackbarService,
+    private bookService: BookService
   ) {}
 
   ngOnInit(): void {
@@ -51,9 +54,11 @@ export class UpdateBookComponent implements OnInit {
         next: (book) => {
           this.title = book.title;
           this.author = book.author;
+          this.isLoading = false;
         },
         error: (err) => {
           this.errorMessage = 'Failed to load book';
+          this.isLoading = false;
           console.error(err);
         },
       });
@@ -72,9 +77,12 @@ export class UpdateBookComponent implements OnInit {
       .subscribe({
         next: () => {
           this.snackbar.show('Book updated successfully!');
+          this.bookService.refreshBooks();
           this.router.navigate(['/books']);
         },
         error: (err) => {
+          this.isLoading = false;
+
           this.snackbar.show('Failed to update book.', 'Dismiss', 4000);
 
           this.errorMessage =
