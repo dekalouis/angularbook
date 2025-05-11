@@ -36,6 +36,11 @@
   background: linear-gradient(to right, #2196f3, #2d9fcc, #4c9daf);
 }
 
+.read-font {
+  color: rgb(165, 165, 165);
+  text-decoration: line-through;
+}
+
 .card-title {
   font-size: 1.2rem;
   font-weight: 500;
