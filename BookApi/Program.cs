@@ -40,7 +40,7 @@ var isTesting = builder.Environment.EnvironmentName == "Testing";
 if (!isTesting)
 {
     builder.Services.AddDbContext<AppDbContext>(options =>
-        options.UseNpgsql(builder.Configuration.GetConnectionString("Default")));
+        options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 
     //? the JWT bit, using the secret key from appsettings.json
