@@ -1,0 +1,36 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+<PropertyGroup>
+  <TargetFramework>net9.0</TargetFramework>
+  <IsPackable>false</IsPackable>
+  <CollectCoverage>true</CollectCoverage>
+  <CoverletOutputFormat>cobertura</CoverletOutputFormat>
+  <PreserveCompilationContext>true</PreserveCompilationContext>
+  <IsPackable>false</IsPackable>
+  <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+</PropertyGroup>
+
+
+  <ItemGroup>
+   <ProjectReference Include="..\BookApi\BookApi.csproj" />
+
+    <PackageReference Include="AutoMapper" Version="14.0.0" />
+    <PackageReference Include="coverlet.collector" Version="6.0.4">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="9.0.4" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="9.0.4" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.9.0" />
+    <PackageReference Include="Moq" Version="4.18.4" />
+    <PackageReference Include="xunit" Version="2.4.2" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BookApi.Application\BookApi.Application.csproj" />
+    <ProjectReference Include="..\BookApi.Domain\BookApi.Domain.csproj" />
+    <ProjectReference Include="..\BookApi.Infrastructure\BookApi.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>
