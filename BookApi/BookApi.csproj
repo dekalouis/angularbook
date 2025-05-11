@@ -22,6 +22,7 @@
     <ProjectReference Include="..\BookApi.Application\BookApi.Application.csproj" />
     <ProjectReference Include="..\BookApi.Infrastructure\BookApi.Infrastructure.csproj" />
     <ProjectReference Include="..\BookApi.Domain\BookApi.Domain.csproj" />
+    <ProjectReference Include="..\BookApi.Domain\BookApi.Tests.csproj" />
   </ItemGroup>
 
 </Project>

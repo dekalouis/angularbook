@@ -6,10 +6,12 @@ using BookApi.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using MediatR;
 using BookApi.Application.Features.Books.Commands;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Diagnostics;
+using Microsoft.AspNetCore.Authentication;
+
+
 
 
 
@@ -31,33 +33,44 @@ builder.Services.AddMediatR(cfg =>
 
 
 //? configuring entity framework to use PostgreSQL using connection string from appsettings.json
-builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+// builder.Services.AddDbContext<AppDbContext>(options =>
+//     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+var isTesting = builder.Environment.EnvironmentName == "Testing";
 
-//? the JWT bit, using the secret key from appsettings.json
-var jwtSecret = builder.Configuration["JwtSettings:Secret"]
-    ?? throw new InvalidOperationException("JwtSettings:Secret is not configured in appsettings.json.");
+if (!isTesting)
+{
+    builder.Services.AddDbContext<AppDbContext>(options =>
+        options.UseNpgsql(builder.Configuration.GetConnectionString("Default")));
 
-//*also can do this 
-/*
-var jwtSecret = builder.Configuration["JwtSettings:Secret"]
-    ?? Environment.GetEnvironmentVariable("JWT_SECRET")
-    ?? throw new InvalidOperationException("JwtSettings:Secret is not configured.");
-*/
 
-//?adding the JWT-based authetication to the app
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddJwtBearer(options =>
-    {
-        options.TokenValidationParameters = new TokenValidationParameters
+    //? the JWT bit, using the secret key from appsettings.json
+    var jwtSecret = builder.Configuration["JwtSettings:Secret"]
+        ?? throw new InvalidOperationException("JwtSettings:Secret is not configured in appsettings.json.");
+
+    //*also can do this 
+    /*
+    var jwtSecret = builder.Configuration["JwtSettings:Secret"]
+        ?? Environment.GetEnvironmentVariable("JWT_SECRET")
+        ?? throw new InvalidOperationException("JwtSettings:Secret is not configured.");
+    */
+
+    //?adding the JWT-based authetication to the app
+    builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+        .AddJwtBearer(options =>
         {
-            ValidateIssuer = false,
-            ValidateAudience = false,
-            ValidateIssuerSigningKey = true,
-            IssuerSigningKey = new SymmetricSecurityKey(
-                Encoding.UTF8.GetBytes(jwtSecret))
-        };
-    });
+            options.TokenValidationParameters = new TokenValidationParameters
+            {
+                ValidateIssuer = false,
+                ValidateAudience = false,
+                ValidateIssuerSigningKey = true,
+                IssuerSigningKey = new SymmetricSecurityKey(
+                    Encoding.UTF8.GetBytes(jwtSecret))
+            };
+        });
+}
+
+
+
 
 //*adding the controllers and authorization BEFORE the build
 builder.Services.AddControllers();
@@ -128,3 +141,5 @@ app.UseAuthorization();
 //like app.listen in node to run the server
 app.Run();
 
+
+public partial class Program { }
