@@ -1,3 +1,3 @@
 export const environment = {
-  apiBaseUrl: 'https://angbookserver.dekalouis.com/',
+  apiBaseUrl: 'https://angbookserver.dekalouis.com',
 };
