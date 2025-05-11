@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MaterialModule } from '../material.module';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-login',
@@ -21,7 +22,7 @@ export class LoginComponent {
 
   onSubmit() {
     this.http
-      .post<{ token: string }>('http://localhost:5058/api/auth/login', {
+      .post<{ token: string }>(`${environment.apiBaseUrl}/api/auth/login`, {
         email: this.email,
         password: this.password,
       })

@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MaterialModule } from '../material.module';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-register',
@@ -48,7 +49,7 @@ export class RegisterComponent {
     //     },
     //   });
     this.http
-      .post('http://localhost:5058/api/auth/register', {
+      .post(`${environment.apiBaseUrl}/api/auth/register`, {
         email: this.email,
         password: this.password,
       })
