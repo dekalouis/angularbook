@@ -4,6 +4,7 @@ obj/
 
 # ASP.NET secrets
 appsettings.Development.json
+appsettings.Production.json
 appsettings.Local.json
 secrets.json
 
@@ -23,3 +24,6 @@ Thumbs.db
 
 .env
 .env.*
+
+coverage-report/
+coverage/
